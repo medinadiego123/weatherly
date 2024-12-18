@@ -2,11 +2,13 @@ import requests
 import matplotlib.pyplot as plt
 import numpy as np
 
+# Main Class Function (WeatherAPP)
 class WeatherApp:
     def __init__(self, api_key):
         self.api_key = api_key
         self.base_url = "http://api.openweathermap.org/data/2.5/weather"
 
+# Get weather function (Data)
     def get_weather_data(self, city, units="metric"):
         """Fetch weather data for a given city."""
         try:
@@ -23,22 +25,24 @@ class WeatherApp:
         except requests.exceptions.RequestException as e:
             print(f"Error fetching weather data: {e}")
             return None
-
+        
+# Display weather function (city, temp, desc.)
     def display_weather(self, data, units="c"):
         """Display weather details."""
         if data:
             city = data['name']
-            temp = data['main']['temp']
+            temp = round(data['main']['temp'])
             weather = data['weather'][0]['description']
             unit_symbol = "°C" if units == "c" else "°F"
             print(f"\nWeather in {city}:")
-            print(f"Temperature: {temp:.1f}{unit_symbol}")
+            print(f"Temperature: {temp}{unit_symbol}")
             print(f"Description: {weather.capitalize()}")
             return temp
         else:
             print("Error: Unable to display weather data.")
             return None
 
+# Plot temperature function (displays bar graph comparing cities)
     def plot_temperature(self, cities, temperatures, units="c"):
         """Generate a bar chart for temperature comparison."""
         unit_label = "Temperature (°C)" if units == "c" else "Temperature (°F)"
@@ -50,14 +54,15 @@ class WeatherApp:
         plt.xlabel("Cities", fontsize=12)
         plt.ylabel(unit_label, fontsize=12)
 
-        # Temperature labels above the bars
+        # Add temperature labels above the bars
         for bar, temp in zip(bars, temperatures):
-            plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() - 1, f"{temp:.1f}",
-                     ha='center', va='bottom', fontsize=10, color="white")
+            plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() - 1, f"{temp}°",
+                     ha='center', va='bottom', fontsize=10, color="black")
 
         plt.grid(axis='y', linestyle='--', alpha=0.7)
         plt.show()
 
+# Main function (calls previous methods and manages user input)
 def main():
     api_key = input("Enter your OpenWeatherMap API key: ").strip()
     app = WeatherApp(api_key)
