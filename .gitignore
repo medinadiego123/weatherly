@@ -1,0 +1,11 @@
+# Ignore Python cache and logs
+__pycache__/
+*.log
+
+# Ignore API keys and sensitive files
+*.env
+api_key.txt
+
+# Ignore unnecessary system files
+.DS_Store
+*.tmp
