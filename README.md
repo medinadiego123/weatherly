@@ -75,3 +75,6 @@ Generating temperature comparison chart...
 1. Ensure your internet connection is active.
 2. If you receive a 401 Unauthorized error, double-check your API key.
 3. API Key Security: Do not hardcode your API key in the code if you are uploading it publicly.
+
+## Link to Youtube Presentation
+https://youtu.be/lcYzLMcTPj0
